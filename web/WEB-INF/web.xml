@@ -8,6 +8,11 @@
 <!--<welcome-file-list>-->
     <!--<welcome-file>/login.jsp</welcome-file>-->
 <!--</welcome-file-list>-->
+    <!--<locale-charset-info default-locale="">-->
+        <!--<locale-charset-map locale="" charset=""/>-->
+        <!--<parameter-encoding default-charset="UTF-8"/>-->
+    <!--</locale-charset-info>-->
+
 
     <resource-env-ref>
         <resource-env-ref-name>jdbc/db</resource-env-ref-name>
@@ -89,6 +94,10 @@
         <servlet-name>dashboard</servlet-name>
         <url-pattern>/dashboard</url-pattern>
     </servlet-mapping>
+
+
+
+
 
 
 

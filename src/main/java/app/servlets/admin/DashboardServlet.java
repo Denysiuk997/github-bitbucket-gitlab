@@ -1,3 +1,10 @@
+/**
+ * Данный класс является сервлетом для профиля администратора. Отображение выполняется при помощи файла views/admin/dashboard.jsp
+ *
+ * @author Yevhenii
+ * @version 1.0
+ */
+
 package app.servlets.admin;
 
 import app.entities.TaskDAOImpl;
@@ -11,17 +18,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/** Данный метод выполняет проверку прав пользователя посещать даную страницу. в соответствии с его ролю выполняется перенаправление на
+ * нужную страницу
+ */
 public class DashboardServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-//        String userName = MyFunction.getCookie(req, "username");
-//        if(userName!=null){
-//            req.getRequestDispatcher("views/admin/dashboard.jsp").forward(req, resp);
-//        }else {
-//            resp.sendRedirect("http://localhost:8080/TimeTracking_war_exploded/login");
-//        }
-//
 
 
         String userRole = MyFunction.getCookie(req, "userRole");
@@ -36,9 +38,14 @@ public class DashboardServlet extends HttpServlet {
 
     }
 
+
+    /** Данный метод выполняет обработку пост запросов со страницы профиля администратора.
+     * метод передает данные на JSP файл соответствующие запросу пользователя
+     * Также метод осуществляет операции с заданиями (отмену и старт)
+     */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+        req.setCharacterEncoding("UTF-8");
         String submitType = req.getParameter("submit");
         Character lastChar = submitType.charAt(submitType.length() - 1);
         String idTask = submitType.substring(0, submitType.length() - 1);
@@ -58,7 +65,7 @@ public class DashboardServlet extends HttpServlet {
                 taskDAO.changeStatus(idTask, TaskStatus.CANCEL.getName());
                 req.setAttribute("messageChangeStatus", "Task cancel");
             }
-            req.setAttribute("messageGroupTask", "  tasks");
+            req.setAttribute("messageGroupTask", "Received tasks");
             req.setAttribute("reciveTasks", taskDAO.getAllTasks(TaskStatus.REQUEST));
             req.getRequestDispatcher("views/admin/dashboard.jsp").forward(req, resp);
         } else if (submitType.equals("Response tasks") || lastChar == 'V') {

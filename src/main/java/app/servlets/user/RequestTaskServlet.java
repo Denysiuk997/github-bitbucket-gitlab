@@ -1,3 +1,10 @@
+/**
+ * Данный класс является сервлетом для возможности зделать пользователю запрос на получение задания. Отображение выполняется при помощи файла views/user/requestTask.jsp
+ *
+ * @author Yevhenii
+ * @version 1.0
+ */
+
 package app.servlets.user;
 
 import app.entities.Customer;
@@ -15,18 +22,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+
+/**
+ * Данный метод выполняет проверку прав пользователя посещать даную страницу. в соответствии с его ролю выполняется перенаправление на
+ * нужную страницу
+ */
 public class RequestTaskServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-//        String userName = MyFunction.getCookie(req, "username");
-//        if(userName!=null){
-//            req.getRequestDispatcher("views/user/requestTask.jsp").forward(req, resp);
-//        }else {
-//            resp.sendRedirect("http://localhost:8080/TimeTracking_war_exploded/login");
-//        }
-
-
 
         String userRole = MyFunction.getCookie(req, "userRole");
         if (userRole.equalsIgnoreCase("admin")) {
@@ -39,9 +42,14 @@ public class RequestTaskServlet extends HttpServlet {
 
     }
 
+
+    /** Данный метод выполняет обработку пост запросов со страницы запроса задания пользователем
+     *Метод выполняет проверку данных, которые ввел пользователь. Если они коректны  - создается новое задание
+     */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         CustomerDAOImpl customerDAO = new CustomerDAOImpl();
+        req.setCharacterEncoding("UTF-8");
         String taskName = req.getParameter("taskname");
         String description = req.getParameter("description");
         String submitType = req.getParameter("submit");

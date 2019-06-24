@@ -1,3 +1,10 @@
+/**
+ * Данный класс является сервлетом для профиля пользователя. Отображение выполняется при помощи файла views/user/profile.jsp
+ *
+ * @author Yevhenii
+ * @version 1.0
+ */
+
 package app.servlets.user;
 
 import app.entities.TaskDAOImpl;
@@ -16,6 +23,10 @@ import java.io.PrintWriter;
 public class ProfileServlet extends HttpServlet {
 
 
+    /**
+     * Данный метод выполняет проверку прав пользователя посещать даную страницу. в соответствии с его ролю выполняется перенаправление на
+     * нужную страницу
+     */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
@@ -29,13 +40,18 @@ public class ProfileServlet extends HttpServlet {
         }
 
 
-
     }
 
+
+    /**
+     * Данный метод выполняет обработку пост запросов со страницы профиля пользователя.
+     * метод передает данные на JSP файл соответствующие запросу пользователя
+     * Также метод осуществляет операции с заданиями (отмену и старт)
+     */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String userName = MyFunction.getCookie(req, "username");
-
+        req.setCharacterEncoding("UTF-8");
         String submitType = req.getParameter("submit");
         char lastChar = submitType.charAt(submitType.length() - 1);
         String idTask = submitType.substring(0, submitType.length() - 1);

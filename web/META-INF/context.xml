@@ -1,11 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <Context>
-    <Resource
-            name="jdbc/db" type="javax.sql.DataSource"
-            maxActive="100" maxIdle="30" maxWait="10000"
-            url="jdbc:mysql://localhost:3306/task_manager"
-            driverClassName="com.mysql.jdbc.Driver"
-            username="admin" password="12345"
-    />
+    <Context path="/JavaServletLog4j"/>
+
+    <Resource name="jdbc/mydatabase"
+              auth="Container"
+              type="javax.sql.DataSource"
+              username="admin"
+              password="12345"
+              driverClassName="com.mysql.jdbc.Driver"
+              url="jdbc:mysql://localhost:3306/task_manager?autoReconnect=true"
+              autoReconnect="true"
+              validationQuery="select 1"
+              maxActive="100"
+               testWhileIdle="true"
+timeBetweenEvictionRunsMillis="600"
+              maxIdle="4"/>
+
+
 </Context>
+
+
+
+

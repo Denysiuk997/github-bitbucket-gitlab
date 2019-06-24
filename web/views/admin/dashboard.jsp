@@ -10,6 +10,7 @@
 <html>
 <head>
     <title>Title</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <link rel="stylesheet" href="styleProfile.css">
 </head>
 <body>
@@ -28,7 +29,17 @@
 
 
 <div class="nameGroup">
-   ${messageChangeStatus}  ${messageGroupTask}
+    <c:choose>
+        <c:when test="${messageChangeStatus==null}">
+            ${messageGroupTask}
+            <br />
+        </c:when>
+        <c:otherwise>
+            ${messageChangeStatus}
+            <br />
+        </c:otherwise>
+    </c:choose>
+
 </div>
 
 

@@ -11,6 +11,7 @@
 <head>
     <title>Title</title>
     <link rel="stylesheet" href="styleProfile.css">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 </head>
 <body>
 <jsp:include page="/headerMenu.html" />
@@ -26,13 +27,21 @@
 </div>
 
 <div class="nameGroup">
-    ${messageGroupTask}
-    ${messageChangeStatus}
+
+    <c:choose>
+        <c:when test="${messageChangeStatus==null}">
+            ${messageGroupTask}
+            <br />
+        </c:when>
+        <c:otherwise>
+            ${messageChangeStatus}
+            <br />
+        </c:otherwise>
+    </c:choose>
+
+
+
 </div>
-
-
-
-
 
 
 

@@ -1,7 +1,15 @@
+/**
+ * Данный класс является сервлетом для авторизации пользователей. Отображение выполняется при помощи файла views/login.jsp
+ *
+ * @author Yevhenii
+ * @version 1.0
+ */
 package app.servlets;
 
 import app.entities.Customer;
 import app.entities.CustomerDAOImpl;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,7 +18,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 
+
+/** Данный метод выполняет перенаправление на файл views/register.jsp
+ */
 public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -23,18 +35,23 @@ public class LoginServlet extends HttpServlet {
         requestDispatcher.forward(req, resp);
     }
 
+    /** Данный метод выполняет обработку пост запроса со страницы авторизации. Если данные пользователь ввел коректные - метод выполняет авторизацию пользователя
+     * и сохраняет его userName в куки  и перенаправляет его на страницу его профиля
+     */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         CustomerDAOImpl customerDAO = new CustomerDAOImpl();
-
-        String userName = req.getParameter("username");
-        String password = req.getParameter("password");
-        String submitType = req.getParameter("submit");
+        req.setCharacterEncoding("UTF-8");
+        String userName = req.getParameter("username").toLowerCase();
+        String password = req.getParameter("password").toLowerCase();
+        String submitType = req.getParameter("submit").toLowerCase();
 
         Customer c = customerDAO.getCustomer(userName, password);
-        System.out.println(c.getUserName() + " " + c.getRole());
+
 
         if (submitType.equals("login") && c.getName() != null && c != null) {
+
+
             // set cookie//
             Cookie coo = new Cookie("username", c.getUserName());
             Cookie cookie = new Cookie("userRole", c.getRole());
