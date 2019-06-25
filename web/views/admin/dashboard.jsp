@@ -149,6 +149,10 @@
 
 
 
+
+
+
+
 <%if (request.getAttribute("requestTasks") != null) {%>
 <form class="buttonFC" action="dashboard" method="post">
 
@@ -186,11 +190,6 @@
 
 
 
-
-
-
-
-
 <%if (request.getAttribute("cancelTasks") != null) {%>
 
 <div class="globalprofile">
@@ -213,15 +212,11 @@
                 </div>
             </div>
         </div>
+
     </c:forEach>
 </div>
 </form>
 <% }%>
-
-
-
-
-
 
 
 </body>

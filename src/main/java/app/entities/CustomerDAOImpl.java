@@ -7,7 +7,6 @@
 
 package app.entities;
 import app.model.ConnectionPool;
-import app.model.MyConnectionProvider;
 import javax.sound.midi.Soundbank;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
